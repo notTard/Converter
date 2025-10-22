@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Конвертация файла</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .success { color: green; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Файл успешно загружен!</h1>
+        
+        <div class="success">
+            <p>Файл: <span th:text="${originalFileName}"></span></p>
+            <p>Готов к конвертации в PDF</p>
+        </div>
+        
+        <form method="post" action="/convert">
+            <input type="hidden" name="fileName" th:value="${uploadedFile}">
+            <input type="hidden" name="originalFileName" th:value="${originalFileName}">
+            <button type="submit">Конвертировать и скачать PDF</button>
+        </form>
+        
+        <p><a href="/">Загрузить другой файл</a></p>
+    </div>
+</body>
+</html>

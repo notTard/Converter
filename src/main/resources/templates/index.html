@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Конвертер файлов</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .drop-zone { 
+            border: 2px dashed #ccc; 
+            padding: 40px; 
+            text-align: center; 
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .drop-zone:hover { background-color: #f9f9f9; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Конвертер файлов в PDF</h1>
+        
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+        
+        <form method="post" action="/upload" enctype="multipart/form-data" id="uploadForm">
+            <div class="drop-zone" id="dropZone">
+                <p>Перетащите файл сюда или кликните для выбора</p>
+                <p><small>Поддерживаемые форматы: .txt, .fb2</small></p>
+                <input type="file" name="file" id="fileInput" accept=".txt,.fb2" style="display: none;">
+            </div>
+            <button type="submit" style="display: none;" id="submitBtn">Загрузить</button>
+        </form>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const submitBtn = document.getElementById('submitBtn');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#007cba';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = '#ccc';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#ccc';
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                submitBtn.style.display = 'block';
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                submitBtn.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
