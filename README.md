@@ -1,3 +1,2 @@
 app converting .txt and .fb2 to pdf
-
-<img src="https://github.com/notTard/Converter/main/gifs/example.gif" width="70%" height="60%" alt="GIF example">
+![til](https://github.com/notTard/Converter/blob/main/gifs/example.gif)
